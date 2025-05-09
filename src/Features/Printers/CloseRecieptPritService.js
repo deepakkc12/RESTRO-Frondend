@@ -210,7 +210,26 @@ class ThermalPrinterService {
           </div>
         </div>
 
+          <div class="line"></div>
+        <div class="details">
+          <div class="detail-row">
+            <div class="detail-label">Declared Damage Amount</div>
+            <span class="detail-value">${Currency} ${formatAmount(data.DamageAmount)}</span>
+          </div>
+          </div>
 
+
+          <div class="line"></div>
+        <div class="details">
+          <div class="detail-row">
+            <div class="detail-label">Expenses</div>
+            <span class="detail-value">${Currency} ${formatAmount(data.expenses)}</span>
+          </div>
+            <div class="detail-row">
+            <div class="detail-label">Payments</div>
+            <span class="detail-value">${Currency} ${formatAmount(data.payments)}</span>
+          </div>
+          </div>
 
         <div class="line"></div>
         <div class="center">End of Report</div>

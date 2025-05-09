@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 function Title({showIp=false}) {
   const navigate = useNavigate();
 
+  const [heading,setHeading] = useState('RESTRO')
+
   const [ip, setIp] = useState("");
 
   useEffect(() => {
@@ -19,6 +21,39 @@ function Title({showIp=false}) {
       }
     };
 
+    function extractPort(url) {
+      try {
+        const parsedUrl = new URL(url);
+        return parsedUrl.port || null; // returns "" if no port is specified
+      } catch (error) {
+        console.error("Invalid URL:", error.message);
+        return null;
+      }
+    }
+
+    
+ const getHeading = async () => {
+  try {
+    const response = await fetch('/config.json');
+    const config = await response.json();
+
+   const port = extractPort(config.API_URL)
+
+   if(port==9001){
+    setHeading("RESTRO")
+   }else if(port == 9091){
+    setHeading("RESTRO DEMO-SERVER")
+   }else{
+    setHeading("RESTRO DEV")
+   }
+
+  } catch (error) {
+    console.error('Failed to load API URL from config.json:', error);
+    throw error; // Optionally, rethrow the error for further handling
+  }
+};
+
+getHeading()
     fetchIp();
   }, []);
   
@@ -31,7 +66,7 @@ function Title({showIp=false}) {
           navigate("/");
         }}
       >
-        RESTRO
+        {heading}
       </span>
       <CurrentDate />
       {showIp &&  <span className="dark:text-white text-xs">

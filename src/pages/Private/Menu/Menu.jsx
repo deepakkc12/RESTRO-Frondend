@@ -27,6 +27,7 @@ import NumericKeyboard from "../../../Features/KeyBoards/NumberKeyboard";
 import CategorySelector from "./CategorySelector";
 import MenuDetailModal from "../../../Features/MenuDetail/MenuDetailModal";
 import CartModal from "../CartModal/CartModal";
+import TableSelectionModal from "../../../Features/modals/TableChangeModal";
 
 const MenuItem = React.memo(({ item, onAddToCart, onSelect }) => {
   const navigate = useNavigate();
@@ -322,6 +323,8 @@ const Menu = () => {
       <KotTypeSelector />
       <SplitBill />
       <NumericKeyboard variant="right" />
+
+      <TableSelectionModal/>
 
       {/* {itemModal&&<MenuDetailModal isOpen={itemModal} onClose={()=>{setItemModal(false)}} skuId={selectedItem?.SubSkuCode}/>} */}
     </div>

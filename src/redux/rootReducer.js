@@ -13,6 +13,7 @@ import CARTModalReducer from './cartMoodal/reducer';
 import { settingsReducer } from './Settings/reducer';
 import VirtualKeyboardReducer from './VirtualKeyboard/reducer';
 import MergeBill from './mergeBillModal/reducer';
+import TableChangeModalReducer from './TableChangeModal/reducer';
 // Combine all reducers here
 const rootReducer = combineReducers({
 
@@ -39,9 +40,13 @@ const rootReducer = combineReducers({
     cartModal:CARTModalReducer,
 
     settings:settingsReducer,
+
     virtualKeyboard:VirtualKeyboardReducer,
-    mergeBillModal:MergeBill
-   
+
+    mergeBillModal:MergeBill,
+
+    tableChange:TableChangeModalReducer
+    
 });
 
 export default rootReducer;

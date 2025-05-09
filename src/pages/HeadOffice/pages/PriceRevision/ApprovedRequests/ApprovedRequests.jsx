@@ -99,7 +99,7 @@ const handleFilterChange = (newFilters) => {
 
   console.log('Selected filters:', newFilters);
 
-    toast.success('Selected filters:', newFilters[0]?.name);
+    // toast.success('Selected filters:', newFilters[0]?.name);
     // You can filter your data here based on the selected filters
     // or make an API call with the filter parameters
   };
@@ -122,9 +122,11 @@ const handleFilterChange = (newFilters) => {
         // datePickerOptions={{
         //   showDatePicker: true,
         //   pickerType: "range",
+        
         // }}
         // onRowClick={(row)=>{navigate("/ho/branch/details",{state:{branch:row}})}}
         // onDateRangeChange={onChangeDate}
+
         headers={headers}
         data={data}
         title="Approved Price Revisions"

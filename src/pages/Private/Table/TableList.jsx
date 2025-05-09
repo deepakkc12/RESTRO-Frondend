@@ -142,6 +142,7 @@ const TableGrid = ({ kotTypeCode ,isTokenBased}) => {
   const getTables = async () => {
     try {
       const response = await getRequest(`tables/layout/${4}/`);
+      // console.log(response)
       // const data = await response.json();
       if (response.success) {
         const activeTables = response.data

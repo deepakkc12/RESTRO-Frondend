@@ -144,6 +144,7 @@ const CloseCounter = () => {
     numberOfBills: "",
     purchaseAmount: "",
     creditAmount: "",
+    damageAmount:""
   });
 
   const inputRefs = {
@@ -154,6 +155,7 @@ const CloseCounter = () => {
     numberOfBills: useRef(),
     purchaseAmount: useRef(),
     creditAmount: useRef(),
+    damageAmount:useRef()
   };
 
   const { user } = useSelector((state) => state.auth);
@@ -239,6 +241,7 @@ const CloseCounter = () => {
       purchaseAmount: formData.purchaseAmount,
       creditPurchase: formData.creditAmount,
       purchaseBillNo: formData.numberOfBills,
+      damageAmount:formData.damageAmount
     };
 
     // await printerService.connect();
@@ -247,7 +250,7 @@ const CloseCounter = () => {
       if (response.success) {
         // await PrinterService.printReceipt(formData, user);
 
-        console.log(response.data)
+        // console.log(response.data)
 
         try {
     
@@ -350,7 +353,7 @@ const CloseCounter = () => {
                         : "border-gray-300 dark:border-gray-600"
                     }`}
                     placeholder="Enter cash amount"
-                    readOnly
+                    // readOnly
                   />
                   {/* {errors.cashAmount && (
                     <p className="mt-1 text-sm text-red-500">{errors.cashAmount}</p>
@@ -373,7 +376,7 @@ const CloseCounter = () => {
                         : "border-gray-300 dark:border-gray-600"
                     }`}
                     placeholder="Enter card amount"
-                    readOnly
+                    // readOnly
                   />
                   {/* {errors.cardAmount && (
                     <p className="mt-1 text-sm text-red-500">{errors.cardAmount}</p>
@@ -398,7 +401,7 @@ const CloseCounter = () => {
                         : "border-gray-300 dark:border-gray-600"
                     }`}
                     placeholder="Enter Touch 'n Go amount"
-                    readOnly
+                    // readOnly
                   />
                   {/* {errors.touchNgoAmount && (
                     <p className="mt-1 text-sm text-red-500">{errors.touchNgoAmount}</p>
@@ -421,7 +424,7 @@ const CloseCounter = () => {
                         : "border-gray-300 dark:border-gray-600"
                     }`}
                     placeholder="Enter Bank QR amount"
-                    readOnly
+                    // readOnly
                   />
                   {/* {errors.bankQrAmount && (
                     <p className="mt-1 text-sm text-red-500">{errors.bankQrAmount}</p>
@@ -454,7 +457,7 @@ const CloseCounter = () => {
                       : "border-gray-300 dark:border-gray-600"
                   }`}
                   placeholder="Enter number of bills"
-                  readOnly
+                  // readOnly
                 />
                 {/* {errors.numberOfBills && (
                   <p className="mt-1 text-sm text-red-500">{errors.numberOfBills}</p>
@@ -477,7 +480,7 @@ const CloseCounter = () => {
                       : "border-gray-300 dark:border-gray-600"
                   }`}
                   placeholder="Enter purchase amount"
-                  readOnly
+                  // readOnly
                 />
                 {/* {errors.purchaseAmount && (
                   <p className="mt-1 text-sm text-red-500">{errors.purchaseAmount}</p>
@@ -501,6 +504,29 @@ const CloseCounter = () => {
                   }`}
                   placeholder="Enter credit amount"
                   readOnly
+                />
+                {/* {errors.creditAmount && (
+                  <p className="mt-1 text-sm text-red-500">{errors.creditAmount}</p>
+                )} */}
+              </div>
+              <div className="flex-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Damage Amount
+                </label>
+                <input
+                  ref={inputRefs.damageAmount}
+                  type="text"
+                  name="damageAmount"
+                  value={formData.damageAmount}
+                  onChange={handleInputChange}
+                  onFocus={() => handleInputFocus("damageAmount")}
+                  className={`w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 ${
+                    errors.damageAmount
+                      ? "border-red-500"
+                      : "border-gray-300 dark:border-gray-600"
+                  }`}
+                  placeholder="Enter damage amount"
+                  // readOnly
                 />
                 {/* {errors.creditAmount && (
                   <p className="mt-1 text-sm text-red-500">{errors.creditAmount}</p>
@@ -626,6 +652,14 @@ const CloseCounter = () => {
                     </span>
                     <span className="font-medium text-gray-900 dark:text-gray-100">
                       {Currency} {formData.creditAmount || "0"}
+                    </span>
+                  </div>
+                  <div className="flex justify-between py-1 border-b border-gray-200 dark:border-gray-700">
+                    <span className="text-gray-600 dark:text-gray-400">
+                      Damage Amount
+                    </span>
+                    <span className="font-medium text-gray-900 dark:text-gray-100">
+                      {Currency} {formData.damageAmount || "0"}
                     </span>
                   </div>
                 </div>

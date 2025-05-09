@@ -43,6 +43,9 @@ import TenderOrders from "../pages/Private/Tender/TenderOrders";
 import TodaySalesList from "../pages/Private/TodaySales/TodaySales";
 import UserManager from "../pages/Private/UserManager/UserManager";
 import DynamicMenuWrapper from "../Features/others/DynamicMenu";
+import HoTaxSummary from "../pages/HeadOffice/pages/TaxSummary/TaxSummary";
+import ItemsList from "../pages/HeadOffice/pages/ProductCreation/PendingProducts/PendingProducts";
+import CustomerOutwardList from "../pages/Private/CustomerOutstandings/CustomerList";
 
 
 
@@ -75,6 +78,8 @@ export const routes = {
     { path: "backup", element: DatabaseBackup },
     { path: "inwards", element: InwardList },
     { path: "payments", element: PaymentList },
+    { path: "customer-outstanding", element: CustomerOutwardList },
+
     { path: "cash-counter/list", element: CashCounterList },
 
 
@@ -98,6 +103,9 @@ export const routes = {
     { path: "/ho/approved/price-requests", element: ApprovedPriceReqs },
     { path: "/ho/pending/price-requests", element: PendingPriceReqs },
     { path: "/ho/sales-summery", element: HoSalesSummary },
+    { path: "/ho/tax-summery", element: HoTaxSummary },
+    { path: "/ho/product-creation", element: ItemsList },
+    
     { path: "/ho/v2-items-list", element: V2ItemList },
 
     

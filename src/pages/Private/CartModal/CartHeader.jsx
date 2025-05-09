@@ -8,6 +8,7 @@ import DeleteCartButton from '../../../Features/Buttons/DeleteCartButton';
 import { getRequest } from '../../../services/apis/requests';
 import ScannOpenButton from '../../../Features/Buttons/ScannOpenButton';
 import VegToggle from '../../../Features/Buttons/VegToggleButton';
+import TableChangeButton from '../../../Features/Buttons/ChangeTableButt';
 
 const CartHeader = ({ isVeg,onClose,items, title, cartId,setBarcodeItem,openBarcodeModal,showScan=true }) => {
   const [isScanning, setIsScanning] = useState(true);
@@ -64,7 +65,7 @@ const CartHeader = ({ isVeg,onClose,items, title, cartId,setBarcodeItem,openBarc
           {showScan&&<ScannOpenButton/>}
           <VegToggle orderCode={cartId} isVeg={isVeg} items={items}/>
    
- 
+ <TableChangeButton/>
         
       </div>
       <button 

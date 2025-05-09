@@ -34,6 +34,46 @@ export const Header = ({ toggleSidebar }) => {
     navigate("/")
 
   }
+
+  const [heading,setHeading] = useState('RESTRO')
+
+  const [ip, setIp] = useState("");
+
+  function extractPort(url) {
+    try {
+      const parsedUrl = new URL(url);
+      return parsedUrl.port || null; // returns "" if no port is specified
+    } catch (error) {
+      console.error("Invalid URL:", error.message);
+      return null;
+    }
+  }
+
+  useEffect(() => {
+    
+ const getHeading = async () => {
+  try {
+    const response = await fetch('/config.json');
+    const config = await response.json();
+    const port = extractPort(config.API_URL)
+
+   if(port==9001){
+    setHeading("RESTRO")
+   }else if(port == 9091){
+    setHeading("RESTRO DEMO-SERVER")
+   }else{
+    setHeading("RESTRO DEV")
+   }
+   
+  } catch (error) {
+    console.error('Failed to load API URL from config.json:', error);
+    throw error; // Optionally, rethrow the error for further handling
+  }
+};
+
+getHeading()
+    // fetchIp();
+  }, []);
   return (
     <header className="bg-primary-600 text-white">
       <div className="flex items-center shadow-2xl justify-between p-4">
@@ -44,7 +84,7 @@ export const Header = ({ toggleSidebar }) => {
           >
             <Menu size={24} />
           </button>
-          <h1 className="text-xl font-roboto  font-bold ">RESTRO</h1>
+          <h1 className="text-xl font-roboto  font-bold ">{heading}</h1>
         </div>
         <div className="flex items-center">
           <div className="relative z-50" ref={dropdownRef}>

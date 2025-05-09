@@ -28,7 +28,7 @@ const toastStyles = {
     icon: '✅'
   },
   error: {
-    duration: 1000,
+    duration: 2000,
     theme: { primary: '#E57373' },
     icon: '❌'
   },

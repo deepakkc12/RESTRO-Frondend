@@ -12,7 +12,8 @@ import {
   User2Icon, 
   UtensilsIcon,
   Search,
-  Bell
+  Bell,
+  CreditCard
 } from 'lucide-react';
 import AdminPanelHeader from '../../../components/Headers/AdminPanelHeader';
 
@@ -129,6 +130,16 @@ const AdminPanel = () => {
       bgColor: 'bg-yellow-100',
       iconColor: 'text-yellow-600'
     },
+    {
+      title: 'Customer Outstanding',
+  icon: <CreditCard className="w-6 h-6" />,
+  path: '/customer-outstanding',
+  description: 'Track pending customer payments',
+  bgColor: 'bg-sky-100',
+      iconColor: 'text-sky-600'
+    }
+    
+  
   ];
 
   return (

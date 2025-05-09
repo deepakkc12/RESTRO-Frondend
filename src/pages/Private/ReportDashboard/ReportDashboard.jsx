@@ -379,7 +379,7 @@ const ReportsDashboard = () => {
                   {category.name}
                 </span>
                 {selectedCategory === category.id && (
-                  <div className="absolute right-0 w-1 h-8 bg-green-600 rounded-l-full transform -translate-y-1/2" />
+                  <div className="absolute right-0 w-1 h-8 bg-green-600 rounded-l-full transform -translate-y-2/2" />
                 )}
               </button>
             ))}

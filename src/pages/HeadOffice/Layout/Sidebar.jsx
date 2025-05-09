@@ -11,53 +11,59 @@ import {
   ContactRound,
   BookOpenCheck,
   Weight,
-  ShoppingBag
+  ShoppingBag,
+  CookingPot
 } from "lucide-react";
 
 // Types for TypeScript support (optional)
 const MENU_ITEMS = [
   {
-    icon: <UtensilsCrossed size={20} />,
+    icon: <UtensilsCrossed size={16} />,
     text: "Dashboard",
     path: "/ho/dashboard"
   },
   {
-    icon: <Weight size={20} />,
+    icon: <Weight size={16} />,
     text: "Sales Summary",
     path: "/ho/sales-summery"
   },
   {
-    icon: <Building2 size={20} />,
+    icon: <Weight size={16} />,
+    text: "Tax Summary",
+    path: "/ho/tax-summery"
+  },
+  {
+    icon: <Building2 size={16} />,
     text: "Branch Wise Sales",
     path: "/ho/branch/summery"
   },
   {
-    icon: <ReceiptText size={20} />,
+    icon: <ReceiptText size={16} />,
     text: "Purchase Summary",
     path: "/ho/purchase-summery"
   },
   {
-    icon: <OctagonX size={20} />,
+    icon: <OctagonX size={16} />,
     text: "Unbilled KOT Summary",
     path: "/ho/unbilled-kot"
   },
   {
-    icon: <Truck size={20} />,
+    icon: <Truck size={16} />,
     text: "Homedelivery Summary",
     path: "/ho/home-delivery-summery"
   },
   {
-    icon: <ContactRound size={20} />,
+    icon: <ContactRound size={16} />,
     text: "Vendors",
     path: "/ho/vendors/list"
   },
   {
-    icon: <Building size={20} />,
+    icon: <Building size={16} />,
     text: "Branch List",
     path: "/ho/branch/list"
   },
   {
-    icon: <BookOpenCheck size={20} />,
+    icon: <BookOpenCheck size={16} />,
     text: "Price Revisions",
     submenu: [
       { text: "Pending Requests", path: "/ho/pending/price-requests" },
@@ -65,7 +71,12 @@ const MENU_ITEMS = [
     ]
   },
   {
-    icon: <ShoppingBag size={20} />,
+    icon: <CookingPot size={16} />,
+    text: "Restro Items",
+    path: "/ho/product-creation"
+  },
+  {
+    icon: <ShoppingBag size={16} />,
     text: "V2 Items",
     path: "/ho/v2-items-list"
   }

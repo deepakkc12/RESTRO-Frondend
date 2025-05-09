@@ -139,7 +139,7 @@ export const fetchCart = (cartId = null, getReturn = () => {}) => {
       const response = await axios.get(`kot-items/${resolvedCartId}/`);
       const data = response.data.data;
 
-      console.log("Cart API Response:", data);
+      // console.log("Cart API Response:", data);
 
       dispatch({
         type: FETCH_CART_SUCCESS,
@@ -188,7 +188,7 @@ export const addItemToCart = (item,toast,masterId,onSuccess,barcode,onError=()=>
       cartId = cartId.id || cartId.cartId || cartId.toString();
     }
 
-    console.log("Processed cartId:", cartId);
+    // console.log("Processed cartId:", cartId);
 
     if (!cartId) {
       console.error("No valid cart ID found");
@@ -205,7 +205,7 @@ export const addItemToCart = (item,toast,masterId,onSuccess,barcode,onError=()=>
         kot_master_id: cartId,
       };
 
-      console.log("Request body:", body);
+      // console.log("Request body:", body);
 
       let url = ""
 

@@ -19,7 +19,7 @@ function ScannOpenButton({showText = true}) {
       active:transform active:scale-95"
   >
     <ScanLine size={18} />
-   {showText&& "Scan Item"}
+   {showText&& "Scan"}
   </button>
   )
 }

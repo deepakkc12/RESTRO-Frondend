@@ -27,16 +27,10 @@ function V2ItemList() {
   }
   const getData = async () => {
     setLoading(true);
-
-    // const data = { startDate, endDate };
     const response = await getRequest(
       `v2/items/`
     );
-
-    // console.log(response)
-
     setData(response.data);
-    // setData(response.data);
     setLoading(false);
   };
 

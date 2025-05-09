@@ -28,15 +28,15 @@ const VegToggle = ({isVeg, items = [] ,orderCode}) => {
   if( !orderCode) return null
   
   return (
-    <div className="flex items-center gap-3">
-      <span className={`font-medium ${isDisabled ? 'text-gray-400' : 'text-gray-700 dark:text-gray-200'}`}>
+    <div className="flex items-center gap-2">
+      <span className={`font-medium text-sm ${isDisabled ? 'text-gray-400' : 'text-gray-700 dark:text-gray-200'}`}>
         {isVeg ? 'Vegetarian' : 'Vegetarian'}
       </span>
-      
+
       <button
         onClick={onToggle}
         disabled={isDisabled}
-        className={`relative inline-flex h-7 w-14 flex-shrink-0 cursor-pointer
+        className={`relative inline-flex h-5 w-10 flex-shrink-0 cursor-pointer
           rounded-full border-2 transition-colors duration-200 ease-in-out
           focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
           ${isDisabled 
@@ -50,9 +50,9 @@ const VegToggle = ({isVeg, items = [] ,orderCode}) => {
         aria-label={`Toggle vegetarian mode ${isVeg ? 'off' : 'on'}`}
       >
         <span
-          className={`pointer-events-none inline-block h-6 w-6 transform rounded-full
+          className={`pointer-events-none inline-block h-4 w-4 transform rounded-full
             bg-white shadow-lg ring-0 transition duration-200 ease-in-out
-            ${isVeg ? 'translate-x-7' : 'translate-x-0'}
+            ${isVeg ? 'translate-x-5' : 'translate-x-0'}
             ${isDisabled ? 'bg-gray-100' : ''}`}
         />
       </button>
