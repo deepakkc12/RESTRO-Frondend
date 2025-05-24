@@ -8,6 +8,7 @@ import TokenOrderModal from './TokeOrder';
 import TableLayoutHeader from '../../../components/Headers/TableLayoutHeader';
 import { getRequest } from '../../../services/apis/requests';
 import OrderSelectionModal from './TableOrder';
+import { IMAGE_BASE_URL } from '../../../utils/constants';
 
 const TABLE_STATUS = {
   AVAILABLE: 'available',
@@ -113,15 +114,14 @@ const TableButton = ({ table, isSelected, openModal, openCustomerModal }) => {
         xs:max-w-[80px] xs:max-h-[80px]
         flex flex-col items-center justify-center gap-2
         border-2 ${styles.border}
-        ${table.Name =="T"?"bg-white":"bg-yellow-500"}
-        ${table.Name =="T"? "text-blue-800 text-xs":"text-white text-xs hover:text-blue-800" }
+   ${table.Name.startsWith("T") ? "bg-white" : "bg-yellow-500"}
+${table.Name.startsWith("T") ? "text-blue-800 text-xs" : "text-white text-xs hover:text-blue-800"}
+
         ${styles.hover}
       `}
     >
       <div className={`font-extrabold `}>
-        <span className={``}>
-        {table.Name=="T"?table.Name:"OD"}
-          </span>{table.TableNo}
+        <span className={``}>{table.Name}</span>
       </div>
     </Button>
   );
@@ -246,6 +246,10 @@ const TableList = () => {
   );
 
 
+
+  useEffect(()=>{
+    console.log(IMAGE_BASE_URL)
+  },[])
 
 
 

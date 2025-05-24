@@ -8,10 +8,7 @@ const TOAST_SHOW_KEY = "ihgdjgve"
 
 export const token_key = "lkjhgfdtyjmnv"
 
-
 const TOKEN = localStorage.getItem(token_key)
-
-
 
 // Create the axios instance in an async function
 const createAxiosClient = async () => {
@@ -84,6 +81,10 @@ const initializeAxiosClient = async () => {
 
       // Clear local storage
       window.localStorage.removeItem(USER_SESSION_KEY);
+      window.localStorage.removeItem(token);
+
+
+
       // localStorage.removeItem('pos_current_order');
       // localStorage.removeItem('pos_current_payments');
       // localStorage.removeItem('pos_counter_status');
