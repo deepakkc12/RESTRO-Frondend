@@ -39,13 +39,15 @@ function Title({showIp=false}) {
 
    const port = extractPort(config.API_URL)
 
-   if(port==9001){
+   if(port == 9001){
     setHeading("RESTRO")
    }else if(port == 9091){
     setHeading("RESTRO DEMO-SERVER")
-   }else{
+   }else if(port == 8000){
     setHeading("RESTRO DEV")
-   }
+   }else {
+    setHeading("RESTRO Unknown Server");
+  }
 
   } catch (error) {
     console.error('Failed to load API URL from config.json:', error);

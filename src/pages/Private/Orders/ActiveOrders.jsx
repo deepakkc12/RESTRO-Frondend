@@ -1,8 +1,10 @@
 import PrintButton from "../../../Features/Buttons/PrintButton";
+import CancelOrderButton from "./CancelButton";
 import NumericKeyboard from "../../../Features/KeyBoards/NumberKeyboard";
 import BillPreview from "../../../Features/Printers/BillPrintPreview";
 import KotTypeSelector from "../../../Features/modals/KotTypeSelector";
 import SplitBill from "../../../Features/modals/SplitBill";
+import CancelOrderModal from "./CancelOrderModal";
 import OrderHeader from "../../../components/Headers/OrderHeader";
 import { clearCart, fetchCart } from "../../../redux/cart/actions";
 import { getRequest } from "../../../services/apis/requests";
@@ -87,7 +89,6 @@ const FullWidthOrderManagement = () => {
     items: [],
   });
 
-
   useEffect(() => {
     getActiveOrders();
   }, []);
@@ -95,7 +96,6 @@ const FullWidthOrderManagement = () => {
   const { isBillPrintFirst, isTokenBased, loading } = useSelector(
     (state) => state.settings
   );
-
 
   // Filter orders for each group and handle search
   const groupedOrders = useMemo(() => {
@@ -109,9 +109,9 @@ const FullWidthOrderManagement = () => {
         if (!searchTerm) return true; // No filtering if no search term
   
         // Apply search logic based on KotTypeCode
-        if (group.code ===KOT_TYEPES.takeAway) {
+        if (group.code === KOT_TYEPES.takeAway) {
           return order.CustomerMobileNo?.toString().includes(searchTerm);
-        } else if (group.code ===KOT_TYEPES.homeDelivery) {
+        } else if (group.code === KOT_TYEPES.homeDelivery) {
           return order.CustomerCode?.toString().includes(searchTerm);
         } else {
           return order.TokenNo?.toString().includes(searchTerm); // Default search logic
@@ -128,9 +128,7 @@ const FullWidthOrderManagement = () => {
   const renderOrderCard = (order) => {
     const handleClick = () => {
       dispatch(clearCart())
-
-      dispatch(fetchCart(order.Code,()=>{dispatch(openCARTModal())}));
-
+      dispatch(fetchCart(order.Code, () => { dispatch(openCARTModal()) }));
       navigate("/menu");
       // dispatch(openCARTModal())
     };
@@ -179,14 +177,17 @@ const FullWidthOrderManagement = () => {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
+            {/* Cancel Order Button */}
+            <CancelOrderButton order={order} />
+
             {/* Conditionally Render the Print Bill Button or Status */}
             {order.KotItems > 0 && order.PendingItems == 0 ? (
               <PrintButton
-              billDetails={billDetails}
-              setBillDetails={setBillDetails}
-isBillPrintFirst={isBillPrintFirst}
-              phone={order.CustomerMobileNo}
+                billDetails={billDetails}
+                setBillDetails={setBillDetails}
+                isBillPrintFirst={isBillPrintFirst}
+                phone={order.CustomerMobileNo}
                 removeOrder={() => removeOrder(order.Code)}
                 kotType={order.KotTypeCode}
                 masterId={order.Code}
@@ -271,10 +272,8 @@ isBillPrintFirst={isBillPrintFirst}
     );
   };
 
-  
-
-  useEffect(()=>{
-    return()=>{
+  useEffect(() => {
+    return () => {
       setBillDetails({
         code: null,
         subtotal: 0,
@@ -284,7 +283,8 @@ isBillPrintFirst={isBillPrintFirst}
         items: [],
       })
     }
-  },[])
+  }, [])
+
   return (
     <div
       className="
@@ -297,35 +297,35 @@ isBillPrintFirst={isBillPrintFirst}
       <OrderHeader />
       <div className="p-4 sm:p-6">
         <div className="sticky top-16 pt-2 bg-gray-50 dark:bg-gray-900 ">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 space-y-4 md:space-y-0">
-          <h1
-            className="
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 space-y-4 md:space-y-0">
+            <h1
+              className="
             text-2xl md:text-3xl font-bold flex items-center
             text-gray-900 dark:text-white
           "
-          >
-            <List
-              className="mr-3 text-emerald-600 dark:text-emerald-400"
-              size={28}
-            />
-            Active Orders
-          </h1>
+            >
+              <List
+                className="mr-3 text-emerald-600 dark:text-emerald-400"
+                size={28}
+              />
+              Active Orders
+            </h1>
 
-          {/* Search Section */}
-          <div className="relative w-full md:w-72">
-            <input
-              type="number"
-              name='search'
-              placeholder={
-                selectedKotType === 'Take Away'
-                  ? "Search by Mobile Number"
-                  : selectedKotType === 'Home Delivery'
-                  ? "Search by Customer Code"
-                  : "Search by Token Number"
-              } 
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="
+            {/* Search Section */}
+            <div className="relative w-full md:w-72">
+              <input
+                type="number"
+                name='search'
+                placeholder={
+                  selectedKotType === 'Take Away'
+                    ? "Search by Mobile Number"
+                    : selectedKotType === 'Home Delivery'
+                      ? "Search by Customer Code"
+                      : "Search by Token Number"
+                }
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="
                 w-full
                 bg-white dark:bg-white/10 
                 border border-gray-300 dark:border-white/20 
@@ -336,58 +336,58 @@ isBillPrintFirst={isBillPrintFirst}
                 focus:ring-emerald-600 dark:focus:ring-emerald-500
                 transition-all duration-300
               "
-            />
-            <Search
-              className="
+              />
+              <Search
+                className="
                 absolute left-3 top-1/2 transform -translate-y-1/2 
                 text-gray-500 dark:text-gray-400
               "
-              size={20}
-            />
+                size={20}
+              />
+            </div>
           </div>
-        </div>
-       <div className="flex justify-between items-center">
-       <div className="mb-6 flex flex-wrap space-x-2 sm:space-x-3">
-          {groups
-            .map((group) => (
-              <button
-                key={group.label}
-                onClick={() => {
-                  setSelectedKotType(group.label);
-                  setSearchTerm(""); // Reset search when changing KOT type
-                }}
-                className={`
+          <div className="flex justify-between items-center">
+            <div className="mb-6 flex flex-wrap space-x-2 sm:space-x-3">
+              {groups
+                .map((group) => (
+                  <button
+                    key={group.label}
+                    onClick={() => {
+                      setSelectedKotType(group.label);
+                      setSearchTerm(""); // Reset search when changing KOT type
+                    }}
+                    className={`
                   px-3 sm:px-4 py-2 
                   font-semibold rounded-md text-sm 
                   transition-all
-                  ${
-                    selectedKotType === group.label
-                      ? "bg-emerald-600 text-white"
-                      : "bg-gray-200 dark:bg-white/10 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-white/20"
-                  }
+                  ${selectedKotType === group.label
+                        ? "bg-emerald-600 text-white"
+                        : "bg-gray-200 dark:bg-white/10 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-white/20"
+                      }
                 `}
+                  >
+                    {group.label} ({groupedOrders[group.label].length})
+                  </button>
+                ))}
+            </div>
+            <div className="flex gap-3">
+              <button 
+                onClick={() => { dispatch(openSplitBillModal()) }} 
+                className="px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg shadow-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 transition-all"
               >
-                {group.label} ({groupedOrders[group.label].length})
+                Split Bill
               </button>
-            ))}
-        </div>
-        <div className="flex gap-3">
 
-        <button onClick={()=>{dispatch(openSplitBillModal())}} className="px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg shadow-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 transition-all">
-  Split Bill
-</button>
-
-
-<button onClick={()=>{dispatch(openMergeBillModal())}} className="px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg shadow-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 transition-all">
-  Merge Bill
-</button>
-
-        </div>
-
-       </div>
+              <button 
+                onClick={() => { dispatch(openMergeBillModal()) }} 
+                className="px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg shadow-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 transition-all"
+              >
+                Merge Bill
+              </button>
+            </div>
+          </div>
         </div>
         {/* KOT Type Selector */}
-      
 
         {/* Order List */}
         <div className="space-y-4">
@@ -436,21 +436,24 @@ isBillPrintFirst={isBillPrintFirst}
           )}
         </div>
       </div>
-  <NumericKeyboard variant="centre"/>
+      <NumericKeyboard variant="centre" />
       <BillPreview
-      kotTypeCode={billDetails.KotTypeCode}
-      masterCode={billDetails.code}
-      items={billDetails.items}
-      billDetails={billDetails}
+        kotTypeCode={billDetails.KotTypeCode}
+        masterCode={billDetails.code}
+        items={billDetails.items}
+        billDetails={billDetails}
         removeOrder={(code) => {
           removeOrder(code);
         }}
-        onSuccess={()=>{getActiveOrders()}}
-        // handelPayment={()=>{dispatch(CloseBillPrintModal())}}
+        onSuccess={() => { getActiveOrders() }}
+      // handelPayment={()=>{dispatch(CloseBillPrintModal())}}
       />
-      <SplitBill onSuccess={()=>{getActiveOrders()}}/>
+      <SplitBill onSuccess={() => { getActiveOrders() }} />
       <KotTypeSelector />
-      <MergeBill onSuccess={()=>{getActiveOrders()}}/>
+      <MergeBill onSuccess={() => { getActiveOrders() }} />
+      
+      {/* Cancel Order Modal */}
+      <CancelOrderModal onSuccess={() => { getActiveOrders() }} />
     </div>
   );
 };

@@ -15,7 +15,8 @@ export const getRequest = async (url,data) => {
     // console.log(data)
     try { 
         const response = await api.get(url,data); 
-        // console.log('Response from GET request:', response); 
+        // console.log('Response from GET request:', response);
+        console.log('Response from GET request:', response); 
         return response.data; 
     } catch (err) { 
         console.error('Error in GET request:', err); 
@@ -34,6 +35,8 @@ export const fileRequest = async (url,data) => {
     try { 
         const response = await api.get(url,data); 
         // console.log('Response from File request:', response); 
+        console.log('Response from GET request:', response); 
+
         return response; 
     } catch (err) { 
         console.error('Error in GET request:', err); 

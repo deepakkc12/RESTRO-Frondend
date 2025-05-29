@@ -3,9 +3,7 @@ import { getApiUrl, loadApiConfig } from './config';
 import { USER_SESSION_KEY } from '../utils/constants';
 import toast from 'react-hot-toast';
 
-
 const TOAST_SHOW_KEY = "ihgdjgve"
-
 export const token_key = "lkjhgfdtyjmnv"
 
 const TOKEN = localStorage.getItem(token_key)
@@ -16,27 +14,11 @@ const createAxiosClient = async () => {
   return axios.create({
     baseURL: getApiUrl(),
     withCredentials: true,
-
     headers: {
       Authorization: TOKEN ? `Bearer ${TOKEN}` : "",
     },
-    
-    // params: {
-    //   token:TOKEN,
-    // },
-
-
-
-    // Optional headers
-    // headers: { 
-    //   'Cookie': 'sessionid=zpbtoxxuxytuha6ydo7qj3t3yzc0pexg',
-    // },
-    // xsrfCookieName: 'csrftoken',
-    // xsrfHeaderName: 'X-CSRFToken',
   });
 };
-
-// console.log(` headers: {Authorization: TOKEN ? Bearer ${TOKEN}}`)
 
 const initializeAxiosClient = async () => {
   const axiosClient = await createAxiosClient();
@@ -53,55 +35,49 @@ const initializeAxiosClient = async () => {
   axiosClient.interceptors.response.use(
     (response) => response,
     async (error) => {
-        // console.log("response.............................")
+      // FIX: Use error.response instead of undefined 'response'
+      console.log("error response.............................", error.response);
+
+      // Add safety check for error.response
+      if (!error.response) {
+        console.error("Network error or no response:", error.message);
+        return Promise.reject(error);
+      }
 
       const { status } = error.response;
-    //   console.log(`response.............................${status}`)
 
-    if (status === 401) {
-      // console.log(error)
+      if (status === 401) {
+        const show_expired_toast = localStorage.getItem(TOAST_SHOW_KEY);
 
-      const show_expired_toast = localStorage.getItem(TOAST_SHOW_KEY)
+        if (!show_expired_toast) {
+          toast.error(error.response.data?.message || "Session expired", {
+            duration: 2000,
+            position: 'top-center',
+            style: {
+              background: '#363636',
+              color: '#fff',
+              borderRadius: '8px',
+              padding: '12px',
+            },
+            icon: '❌',
+          });
+        }
 
-      if(!show_expired_toast){
-        toast.error(error.response.data.message, {
-          duration: 2000,
-          position: 'top-center',
-          style: {
-            background: '#363636',
-            color: '#fff',
-            borderRadius: '8px',
-            padding: '12px',
-          },
-          icon: '❌',
-        });
+        localStorage.setItem(TOAST_SHOW_KEY, true);
+
+        // Clear local storage
+        window.localStorage.removeItem(USER_SESSION_KEY);
+        window.localStorage.removeItem(token_key); // FIX: Use token_key instead of token
+
+        // Redirect after a short delay
+        setTimeout(() => {
+          window.location.href = '/';
+          localStorage.removeItem(TOAST_SHOW_KEY);
+        }, 2000);
       }
-      // Show error toast with custom styling matching your toast configuration
-      localStorage.setItem(TOAST_SHOW_KEY,true)
 
-      // Clear local storage
-      window.localStorage.removeItem(USER_SESSION_KEY);
-      window.localStorage.removeItem(token);
-
-
-
-      // localStorage.removeItem('pos_current_order');
-      // localStorage.removeItem('pos_current_payments');
-      // localStorage.removeItem('pos_counter_status');
-      // localStorage.removeItem('pos_payment_success');
-
-      // Redirect after a short delay to ensure the message is seen
-      setTimeout(() => {
-      window.location.href = '/';
-      localStorage.removeItem(TOAST_SHOW_KEY)
-
-      }, 2000);
-    }
-    if (status === 403) {
-      // console.log(error)
-      // const show_expired_toast = localStorage.getItem(TOAST_SHOW_KEY)
-
-        toast.error(error.response.data.message, {
+      if (status === 403) {
+        toast.error(error.response.data?.message || "Access forbidden", {
           duration: 1000,
           position: 'top-center',
           style: {
@@ -112,8 +88,8 @@ const initializeAxiosClient = async () => {
           },
           icon: '❌',
         });
+      }
 
-    }
       return Promise.reject(error);
     }
   );
@@ -121,6 +97,4 @@ const initializeAxiosClient = async () => {
   return axiosClient;
 };
 
-
-// Export the initialized axios client
 export default initializeAxiosClient;

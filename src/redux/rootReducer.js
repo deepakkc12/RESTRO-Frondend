@@ -14,6 +14,7 @@ import { settingsReducer } from './Settings/reducer';
 import VirtualKeyboardReducer from './VirtualKeyboard/reducer';
 import MergeBill from './mergeBillModal/reducer';
 import TableChangeModalReducer from './TableChangeModal/reducer';
+import cancelOrderModalReducer from './cancelOrderModal/reducer';
 // Combine all reducers here
 const rootReducer = combineReducers({
 
@@ -45,7 +46,8 @@ const rootReducer = combineReducers({
 
     mergeBillModal:MergeBill,
 
-    tableChange:TableChangeModalReducer
+    tableChange:TableChangeModalReducer,
+    cancelOrderModal:cancelOrderModalReducer
     
 });
 
