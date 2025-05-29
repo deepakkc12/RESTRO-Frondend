@@ -182,17 +182,18 @@ const MenuDetailView = () => {
   };
 
   const getRelatedItems = async () => {
-    try {
-      const response = await getRequest(`menu/${skuId}/related/`);
-      if (response.success) {
-        setRelatedItems(response.data || []);
-      } else {
-        setRelatedItems([]);
-      }
-    } catch (error) {
-      console.error("Error fetching related items:", error);
-      setRelatedItems([]);
-    }
+    // try {
+    //   const response = await getRequest(`menu/${skuId}/related/`);
+    //   if (response.success) {
+    //     setRelatedItems(response.data || []);
+    //   } else {
+    //     setRelatedItems([]);
+    //   }
+    // } catch (error) {
+    //   console.error("Error fetching related items:", error);
+    //   setRelatedItems([]);
+    // }
+    setRelatedItems([]);
   };
 
   const getPackingPreference = async () => {
